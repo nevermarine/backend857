@@ -1,0 +1,7 @@
+services:
+  kesha:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - APP_MODULE=controller.PersonController:app

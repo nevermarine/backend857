@@ -124,5 +124,5 @@ def delete_person_by_id(identity):
         abort(400)
 
 
-app.run(debug=True)
+#  app.run(debug=True)
 #  app.run(host='0.0.0.0') # host 0.0.0.0 makes it available over the internet
