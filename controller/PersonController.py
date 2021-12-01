@@ -119,7 +119,7 @@ def get_person_by_id(identity):
 def delete_person_by_id(identity):
     out = PersonService.PersonService.delete_person_by_id(identity)
     if out:
-        abort(200)
+        return 'ok!', 200
     else:
         abort(400)
 
