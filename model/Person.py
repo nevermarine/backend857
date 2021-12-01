@@ -1,5 +1,6 @@
 # from sqlalchemy import Column, Text, Integer
 from peewee import *
+from config.config import DATABASE_PATH
 
 # class Person:
 # 	def __init__(self, first_name, last_name, patronymic):
@@ -25,7 +26,7 @@ from peewee import *
 #     def get_full_name(self):
 #         return ' '.join([self.last_name, self.first_name, self.patronymic])
 
-database = SqliteDatabase('dao/people.db')
+database = SqliteDatabase(DATABASE_PATH)
 
 
 # class UnknownField(object):
