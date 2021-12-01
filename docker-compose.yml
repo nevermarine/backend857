@@ -5,3 +5,5 @@ services:
       - "80:80"
     environment:
       - APP_MODULE=controller.PersonController:app
+    volumes:
+      - ./dao/people.db:/var/people.db
