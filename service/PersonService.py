@@ -19,19 +19,20 @@ class PersonService:
         # if not rgb_frame:
         #     return None
         try:
-            face_encoding = fr.face_encodings(rgb_frame)[0]
+            face_locations = fr.face_locations(rgb_frame)
+            face_encodings = fr.face_encodings(rgb_frame, face_locations)
         except IndexError:
             return None
         query = PersonDao.get_all_persons_as_select()
-        # cursor = PersonDao.get_all_person_as_cursor()
-        # print(face_encoding)
         for person in query.iterator():
             # matches = fr.compare_faces(all_face_encodings, face_encoding)
             if not isinstance(person.face_data, type(None)):
-                # print(np.frombuffer(person.face_data))
-                match = fr.compare_faces([np.frombuffer(person.face_data)], face_encoding)
-                if match:
-                    return person
+
+                for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
+                    match = fr.compare_faces([np.frombuffer(person.face_data)], face_encoding)
+                    print(match)
+                    if match[0]:
+                        return person
 
         return None
 
@@ -92,7 +93,3 @@ class PersonService:
     def get_person_by_id(identity: int) -> Optional[Person]:
         return PersonDao.get_person_by_id(identity)
 
-
-# with open('/srv/faces/07ba7530943d4bc1af07b41f2e51e5a4', 'rb') as f:
-#     img = f.read()
-# FaceService.convert_image_to_face_data(img)
