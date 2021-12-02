@@ -5,5 +5,7 @@ stages:
 
 build-job:
   stage: deploy
+  tags:
+    - shell
   script:
     - docker-compose up --build -d
