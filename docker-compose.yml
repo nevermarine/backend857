@@ -8,3 +8,12 @@ services:
       - APP_MODULE=controller.PersonController:app
     volumes:
       - ./dao/people.db:/var/people.db
+    networks:
+      - net
+
+networks:
+  net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.22.0/24
