@@ -4,8 +4,17 @@ stages:
   - production
 
 build-job:
+  stage: build
+  tags:
+    - shell
+  script:
+    - docker build . -t kesha
+    # well, you don't expect me to copy database file every time I build an image?
+    - ln -s /var/people.db ./dao/
+
+deploy-job:
   stage: deploy
   tags:
     - shell
   script:
-    - docker-compose up --build -d
+    - docker-compose up -d
