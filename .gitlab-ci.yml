@@ -13,7 +13,7 @@ build-job:
   script:
     - docker build . -t kesha
     # well, you don't expect me to copy database file every time I build an image?
-    - ln -s /var/people.db $CI_PROJECT_DIR/dao/
+
 
 deploy-job:
   stage: deploy
@@ -22,4 +22,6 @@ deploy-job:
   tags:
     - shell
   script:
+    - echo $CI_PROJECT_DIR
+    - ln -s /var/people.db $CI_PROJECT_DIR/dao/
     - docker-compose up -d
