@@ -23,6 +23,5 @@ deploy-job:
   tags:
     - shell
   script:
-    - echo $CI_PROJECT_DIR
     - ln -s /var/people.db $CI_PROJECT_DIR/dao/
     - docker-compose up -d
