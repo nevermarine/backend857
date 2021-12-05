@@ -5,6 +5,9 @@ stages:
 
 build-job:
   stage: build
+  only:
+    - develop
+    - master
   tags:
     - shell
   script:
@@ -14,6 +17,8 @@ build-job:
 
 deploy-job:
   stage: deploy
+  only:
+  - master
   tags:
     - shell
   script:
