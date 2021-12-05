@@ -18,7 +18,8 @@ build-job:
 deploy-job:
   stage: deploy
   only:
-  - master
+    - develop
+    - master
   tags:
     - shell
   script:
