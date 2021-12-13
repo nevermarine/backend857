@@ -1,4 +1,4 @@
-from ActiveUser import ActiveUser
+from validator.ActiveUser import ActiveUser
 from service.ruz import Ruz
 from service.weather import Weather
 
