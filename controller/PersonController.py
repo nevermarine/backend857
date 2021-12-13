@@ -81,7 +81,8 @@ def add_active_user():
 @app.route('/get/active_user', methods=['GET'])
 def get_active_user():
     if ActiveUser:
-        return str(ActiveUser)
+        print('test')
+        return str(ActiveUser), 200
     else:
         abort(400)
 
