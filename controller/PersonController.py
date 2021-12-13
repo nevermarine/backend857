@@ -78,6 +78,14 @@ def add_active_user():
     return render_template('face.html')
 
 
+@app.route('/get/active_user', methods=['GET'])
+def get_active_user():
+    if ActiveUser:
+        return str(ActiveUser)
+    else:
+        abort(400)
+
+
 @app.route('/get/person/nobase/face/', methods=['GET', 'POST'])
 def get_person_by_face_no_base():
     if request.method == 'POST':
