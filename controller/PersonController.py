@@ -6,7 +6,8 @@ from werkzeug.utils import secure_filename
 from service import ruz, weather, PersonService
 from model import Person
 from validator.validator import Validator
-from validator.ActiveUser import ActiveUser
+from validator.ActiveUser import CurrentUser
+from validator.SuperUser import CurrentSuperUser
 from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 import json
@@ -24,21 +25,20 @@ def get_schedule(full_name):
         abort(400)
 
 
-@app.route('/get/schedule/id/<identity>', methods=['GET'])
-def get_schedule_by_id(identity):
-    person = PersonService.PersonService.get_person_by_id(identity)
-    r = jsonify(ruz.Ruz.get_schedule_by_names(person.last_name,
-                                              person.first_name,
-                                              person.patronymic))
-    if r is not None:
-        return jsonify(r), 200, {'Content-Type': 'application/json; charset=utf-8'}
+@app.route('/get/schedule', methods=['GET'])
+def get_schedule_by_id():
+    if CurrentSuperUser == CurrentUser:
+        return CurrentSuperUser.get_ruz(), 200, {'Content-Type': 'application/json; charset=utf-8'}
     else:
-        abort(400)
+        return "Not superuser", 400
 
 
 @app.route('/get/weather', methods=['GET'])
 def get_weather():
-    return weather.Weather.get_weather(), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    if CurrentSuperUser == CurrentUser:
+        return CurrentSuperUser.get_weather(), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    else:
+        return "Not superuser", 400
 
 
 @app.route('/add/person', methods=['POST'])
@@ -66,19 +66,28 @@ def add_person():
 # 	)
 
 
-@app.route('/add/active_user/', methods=['GET', 'POST'])
+@app.route('/add/active_user', methods=['GET', 'POST'])
 def add_active_user():
     if request.method == 'POST':
         image = request.files['file']
         if Validator.is_image(image.stream):
-            last_user = ActiveUser(image)
-            if last_user.id is not None:
+            CurrentUser.update(image)
+            if CurrentUser.id is not None:
                 return 'ok!', 200
         abort(400)
     return render_template('face.html')
 
 
-@app.route('/get/person/nobase/face/', methods=['GET', 'POST'])
+@app.route('/get/active_user', methods=['GET'])
+def get_active_user():
+    if CurrentUser.id is not None:
+        print('test')
+        return str(CurrentUser), 200
+    else:
+        abort(400)
+
+
+@app.route('/get/person/face', methods=['GET', 'POST'])
 def get_person_by_face_no_base():
     if request.method == 'POST':
         image = request.files['file']  # .read()
@@ -95,9 +104,6 @@ def get_person_by_face_no_base():
                 print(d)
                 # return jsonify(d)
                 return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
-
-        # evil option!
-        # return redirect(url_for(get_person_by_face_no_base()))
         abort(400)
     return render_template('face.html')
 
