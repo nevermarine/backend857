@@ -65,7 +65,7 @@ class PersonDao:
 
     # UPDATE
     @staticmethod
-    def update_person_face_by_id(i: int, ):
+    def update_person_face_by_id(id: int, ):
         pass
 
     # DELETE
