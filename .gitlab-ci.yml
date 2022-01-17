@@ -11,7 +11,7 @@ build-job:
   tags:
     - shell
   script:
-    - docker build . -t kesha
+    - docker-compose build 
     # well, you don't expect me to copy database file every time I build an image?
 
 
