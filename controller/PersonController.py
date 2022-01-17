@@ -10,8 +10,11 @@ from validator.ActiveUser import ActiveUser
 from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 import json
+from flasgger import Swagger
+
 
 app = Flask(__name__)
+Swagger(app)
 app.config['JSON_AS_ASCII'] = False
 
 
