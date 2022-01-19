@@ -151,8 +151,7 @@ def add_active_user():
     """Add or change active user
     ---
     consumes:
-      - image/png
-      - image/jpeg
+      - multipart/form-data
     parameters:
       - in: formData
         name: face
@@ -164,7 +163,7 @@ def add_active_user():
       400:
         description: There is no such face in database / Bad face
     """
-    image = request.files['image']
+    image = request.files['file']
     if Validator.is_image(image.stream):
         last_user = ActiveUser(image)
         if last_user.id is not None:
@@ -178,8 +177,7 @@ def get_person_by_face_no_base():
     """Get person by face image
     ---
     consumes:
-      - image/png
-      - image/jpeg
+      - multipart/form-data
     parameters:
       - in: formData
         name: face
@@ -192,7 +190,7 @@ def get_person_by_face_no_base():
         description: There is no such face in database / Bad face
     """
     # if request.method == 'POST':
-    image = request.files['image']  # .read()
+    image = request.files['file']  # .read()
     print(image.filename)
     if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
         image.save(IMAGEPATH + secure_filename(image.filename))
