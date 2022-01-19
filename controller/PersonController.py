@@ -211,7 +211,7 @@ def get_person_by_face_no_base():
     # return render_template('face.html')
 
 
-@app.route('/get/person/face/debug/', methods=['GET'])
+@app.route('/get/person/face/debug/', methods=['GET', 'POST'])
 def debug_face():
     if request.method == 'POST':
         image = request.files['file']  # .read()
