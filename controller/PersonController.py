@@ -163,7 +163,7 @@ def add_active_user():
       400:
         description: There is no such face in database / Bad face
     """
-    image = request.files['file']
+    image = request.files['face']
     if Validator.is_image(image.stream):
         last_user = ActiveUser(image)
         if last_user.id is not None:
@@ -190,7 +190,7 @@ def get_person_by_face_no_base():
         description: There is no such face in database / Bad face
     """
     # if request.method == 'POST':
-    image = request.files['file']  # .read()
+    image = request.files['face']  # .read()
     print(image.filename)
     if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
         image.save(IMAGEPATH + secure_filename(image.filename))
@@ -233,6 +233,7 @@ def debug_face():
         # return redirect(url_for(get_person_by_face_no_base()))
         abort(400)
     return render_template('face.html')
+
 
 @app.route('/get/person/id/<identity>', methods=['GET'])
 def get_person_by_id(identity):
