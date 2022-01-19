@@ -211,6 +211,11 @@ def get_person_by_face_no_base():
     # return render_template('face.html')
 
 
+@app.route('/get/person/face/debug/', methods=['GET'])
+def debug_face():
+    get_person_by_face_no_base()
+    return render_template('face.html')
+
 @app.route('/get/person/id/<identity>', methods=['GET'])
 def get_person_by_id(identity):
     out = PersonService.PersonService.get_person_by_id(identity)
