@@ -20,7 +20,9 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route('/get/schedule/name/<full_name>', methods=['GET'])
 def get_schedule(full_name):
-    """
+    """Get JSON array of lessons for specified student
+    This is using docstrings for specifications.
+    ---
     parameters:
         name: full_name
         in: path
