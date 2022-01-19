@@ -164,6 +164,10 @@ def add_active_user():
           description: Added active user
         400:
           description: There is no such face in database / Bad face
+    get:
+      responses:
+        200:
+          description: Simple HTTP page
     """
     if request.method == 'POST':
         image = request.files['file']
