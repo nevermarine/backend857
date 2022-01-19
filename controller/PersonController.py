@@ -90,6 +90,7 @@ def get_weather_date(date):
 @app.route('/add/person', methods=['POST'])
 def add_person():
     """Add a person via JSON POST
+    ---
     consumes:
       - application/json
     parameters:
