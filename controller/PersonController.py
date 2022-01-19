@@ -153,6 +153,11 @@ def add_active_user():
     consumes:
       - image/png
       - image/jpeg
+    parameters:
+      - in: formData
+        name: face
+        type: file
+        description: Face image
     responses:
       200:
         description: Added active user
