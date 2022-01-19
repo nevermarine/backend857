@@ -16,7 +16,7 @@ class Weather:
         logg.info('Start work with openweathermap.org...')
         logg.info('Try to get data from the openweathermap.org...')
         data = requests.get(f'http://api.openweathermap.org/data/2.5/weather?q={city}&lang={lang}&units=metric&appid={API}').json()
-        if not data:
+        if data:
             logg.info('Processing a response from openweathermap.org...')
             weather = {
             'description': data['weather'][0]['main'],
@@ -41,7 +41,7 @@ class Weather:
         logg.info('Start work with openweathermap.org...')
         logg.info('Try to get data from the openweathermap.org...')
         data = requests.get(f'http://api.openweathermap.org/data/2.5/forecast?q={city}&lang={lang}&units=metric&appid={API}').json()
-        if not data:
+        if data:
             logg.info('Processing a response from openweathermap.org...')
             finded = None
             for i in data['list']:
