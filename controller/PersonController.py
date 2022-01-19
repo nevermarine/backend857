@@ -3,7 +3,8 @@ from flask import Flask, request, Blueprint, render_template, abort, url_for, re
 from flask import make_response
 from jinja2 import TemplateNotFound
 from werkzeug.utils import secure_filename
-from service import ruz, weather, PersonService
+from service import ruz, PersonService
+from service.weather import Weather
 from model import Person
 from validator.validator import Validator
 from validator.ActiveUser import ActiveUser
@@ -67,8 +68,15 @@ def get_schedule_by_id(identity):
 
 @app.route('/get/weather', methods=['GET'])
 def get_weather():
-    return weather.Weather.get_weather(), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    return Weather.Weather.get_weather(), 200, {'Content-Type': 'application/json; charset=utf-8'}
 
+
+@app.route('/get/weather_date/<date>', methods=['GET'])
+def get_weather_date(date):
+    out = Weather.Weather.get_weather_date(date=date), 200, {'Content-Type': 'application/json; charset=utf-8'}
+    if out is not None:
+        return out, 200, {'Content-Type': 'application/json; charset=utf-8'}
+    abort(400)
 
 @app.route('/add/person', methods=['POST'])
 def add_person():
