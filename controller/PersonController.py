@@ -118,9 +118,9 @@ def add_person():
         description: Bad face
     """
     file = request.get_json()
-    person = json.loads(file)
-    if Validator.is_valid_person(person):
-        if PersonService.PersonService.create_face(person):
+    # person = json.loads(file)
+    if Validator.is_valid_person(file):
+        if PersonService.PersonService.create_face(file):
             return 'ok!', 200
         else:
             return 'bad face', 420
