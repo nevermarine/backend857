@@ -148,6 +148,16 @@ def add_person():
 
 @app.route('/add/active_user/', methods=['GET', 'POST'])
 def add_active_user():
+    """Add or change active user
+    ---
+    consumes:
+  - image/*
+    responses:
+      200:
+        description: Added active user
+      400:
+        description: There is no such face in database / Bad face
+    """
     if request.method == 'POST':
         image = request.files['file']
         if Validator.is_image(image.stream):
