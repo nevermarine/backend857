@@ -213,7 +213,25 @@ def get_person_by_face_no_base():
 
 @app.route('/get/person/face/debug/', methods=['GET'])
 def debug_face():
-    get_person_by_face_no_base()
+    if request.method == 'POST':
+        image = request.files['file']  # .read()
+        print(image.filename)
+        if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
+            image.save(IMAGEPATH + secure_filename(image.filename))
+            out = PersonService.PersonService.find_face(
+                # FaceService.FaceService.save_byte_image(image)
+                IMAGEPATH + secure_filename(image.filename)
+            )
+            if out is not None:
+                d = model_to_dict(out)
+                del d['face_data']
+                print(d)
+                # return jsonify(d)
+                return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
+
+        # evil option!
+        # return redirect(url_for(get_person_by_face_no_base()))
+        abort(400)
     return render_template('face.html')
 
 @app.route('/get/person/id/<identity>', methods=['GET'])
