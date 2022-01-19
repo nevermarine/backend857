@@ -20,6 +20,19 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route('/get/schedule/name/<full_name>', methods=['GET'])
 def get_schedule(full_name):
+    """
+    parameters:
+        name: full_name
+        in: path
+        type: string
+        required: true
+    responses:
+        '200':
+            content:
+                application/json
+        '400':
+            description: The full name is not in RUZ.
+    """
     r = ruz.Ruz.get_schedule_by_full_name(full_name.replace('_', ' '))
     if r is not None:
         return jsonify(r), 200, {'Content-Type': 'application/json; charset=utf-8'}
