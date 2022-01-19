@@ -237,6 +237,19 @@ def debug_face():
 
 @app.route('/get/person/id/<identity>', methods=['GET'])
 def get_person_by_id(identity):
+    """Get person by ID:
+    ---
+    parameters:
+      - name: identity
+        in: path
+        type: integer
+        required: true
+    responses:
+      200:
+        description: OK
+      400:
+        description: There is no such ID
+    """
     out = PersonService.PersonService.get_person_by_id(identity)
     if out is not None:
         d = model_to_dict(out)
@@ -250,6 +263,19 @@ def get_person_by_id(identity):
 
 @app.route('/delete/person/id/<identity>', methods=['GET'])
 def delete_person_by_id(identity):
+    """Delete person by ID:
+    ---
+    parameters:
+      - name: identity
+        in: path
+        type: integer
+        required: true
+    responses:
+      200:
+        description: OK
+      400:
+        description: There is no such ID
+    """
     out = PersonService.PersonService.delete_person_by_id(identity)
     if out:
         return 'ok!', 200
