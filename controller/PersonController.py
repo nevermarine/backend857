@@ -164,7 +164,7 @@ def add_active_user():
       400:
         description: There is no such face in database / Bad face
     """
-    image = request.files['file']
+    image = request.files['image']
     if Validator.is_image(image.stream):
         last_user = ActiveUser(image)
         if last_user.id is not None:
@@ -192,7 +192,7 @@ def get_person_by_face_no_base():
         description: There is no such face in database / Bad face
     """
     # if request.method == 'POST':
-    image = request.files['file']  # .read()
+    image = request.files['image']  # .read()
     print(image.filename)
     if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
         image.save(IMAGEPATH + secure_filename(image.filename))
