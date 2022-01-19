@@ -68,6 +68,14 @@ def get_schedule_by_id(identity):
 
 @app.route('/get/weather', methods=['GET'])
 def get_weather():
+    """Get JSON of current weather
+            ---
+            responses:
+              200:
+                description: OK
+              400:
+                description: something is really, really wrong
+            """
     return Weather.Weather.get_weather(), 200, {'Content-Type': 'application/json; charset=utf-8'}
 
 
@@ -78,11 +86,45 @@ def get_weather_date(date):
         return out, 200, {'Content-Type': 'application/json; charset=utf-8'}
     abort(400)
 
+
 @app.route('/add/person', methods=['POST'])
 def add_person():
+    """Add a person via JSON POST
+    consumes:
+      - application/json
+    parameters:
+      - in: body
+        name: person
+        description: Person to create.
+        schema:
+          type: object
+          properties:
+            last_name:
+              type: string
+            first_name:
+              type: string
+            patronymic:
+              type: string
+            face_data:
+              type: string
+              format: byte
+    responses:
+      200:
+        description: Created
+      400:
+        description: Bad JSON
+      420:
+        description: Bad face
+    """
     file = request.get_json()
     person = json.loads(file)
-    return PersonService.PersonService.create_face(person)
+    if Validator.is_valid_person(person):
+        if PersonService.PersonService.create_face(person):
+            return 'ok!', 200
+        else:
+            return 'bad face', 420
+    else:
+        return 'bad JSON', 400
 
 
 # Not working!

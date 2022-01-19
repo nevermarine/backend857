@@ -72,7 +72,7 @@ class PersonService:
         return base64.b64decode(hex_text)
 
     @classmethod
-    def create_face(cls, person):
+    def create_face(cls, person: dict) -> bool:
         face_embedding = cls.convert_image_to_face_data(
             cls.convert_str_to_img(person['face_data'])
         )
@@ -83,7 +83,7 @@ class PersonService:
                                     person['last_name'],
                                     person['patronymic'],
                                     face_embedding)
-            return "200"
+            return True
 
     @staticmethod
     def delete_person_by_id(identity: int) -> bool:
