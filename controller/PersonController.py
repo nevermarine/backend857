@@ -150,19 +150,20 @@ def add_person():
 def add_active_user():
     """Add or change active user
     ---
-    consumes:
-      - image/png
-      - image/jpeg
-    parameters:
-      - in: formData
-        name: face
-        type: file
-        description: Face image
-    responses:
-      200:
-        description: Added active user
-      400:
-        description: There is no such face in database / Bad face
+    post:
+      consumes:
+        - image/png
+        - image/jpeg
+      parameters:
+        - in: formData
+          name: face
+          type: file
+          description: Face image
+      responses:
+        200:
+          description: Added active user
+        400:
+          description: There is no such face in database / Bad face
     """
     if request.method == 'POST':
         image = request.files['file']
