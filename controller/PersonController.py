@@ -176,6 +176,7 @@ def add_active_user():
 @app.route('/get/person/face/', methods=['POST'])
 def get_person_by_face_no_base():
     """Get person by face image
+    ---
     consumes:
       - image/png
       - image/jpeg
