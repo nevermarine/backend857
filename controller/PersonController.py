@@ -151,7 +151,8 @@ def add_active_user():
     """Add or change active user
     ---
     consumes:
-      - multipart/form-data
+      - image/png
+      - image/jpeg
     responses:
       200:
         description: Added active user
