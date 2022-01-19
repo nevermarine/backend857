@@ -7,7 +7,7 @@ from service import ruz, PersonService
 from service.weather import Weather
 from model import Person
 from validator.validator import Validator
-from validator.ActiveUser import ActiveUser
+from validator.ActiveUser import CurrentUser
 from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 import json
@@ -165,11 +165,31 @@ def add_active_user():
     """
     image = request.files['face']
     if Validator.is_image(image.stream):
-        last_user = ActiveUser(image)
-        if last_user.id is not None:
+        CurrentUser.update(image)
+        if CurrentUser.id is not None:
             return 'ok!', 200
     abort(400)
-    # return render_template('face.html')
+
+
+@app.route('/get/active_user', methods=['GET'])
+def get_active_user():
+    """Get JSON of active user
+                ---
+                responses:
+                  200:
+                    description: OK
+                  400:
+                    description: No active user
+                """
+    if CurrentUser.id is not None:
+        out = PersonService.PersonService.get_person_by_id(CurrentUser.id)
+        if out is not None:
+            d = model_to_dict(out)
+            del d['face_data']
+            print(d)
+            # return jsonify(d)
+            return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
+    abort(400)
 
 
 @app.route('/get/person/face/', methods=['POST'])
