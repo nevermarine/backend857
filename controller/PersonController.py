@@ -146,61 +146,60 @@ def add_person():
 # 	)
 
 
-@app.route('/add/active_user/', methods=['GET', 'POST'])
+@app.route('/add/active_user/', methods=['POST'])
 def add_active_user():
     """Add or change active user
     ---
-    post:
-      consumes:
-        - image/png
-        - image/jpeg
-      parameters:
-        - in: formData
-          name: face
-          type: file
-          description: Face image
-      responses:
-        200:
-          description: Added active user
-        400:
-          description: There is no such face in database / Bad face
-    get:
-      responses:
-        200:
-          description: Simple HTTP page
+    consumes:
+      - image/png
+      - image/jpeg
+    responses:
+      200:
+        description: Added active user
+      400:
+        description: There is no such face in database / Bad face
     """
-    if request.method == 'POST':
-        image = request.files['file']
-        if Validator.is_image(image.stream):
-            last_user = ActiveUser(image)
-            if last_user.id is not None:
-                return 'ok!', 200
-        abort(400)
-    return render_template('face.html')
+    image = request.files['file']
+    if Validator.is_image(image.stream):
+        last_user = ActiveUser(image)
+        if last_user.id is not None:
+            return 'ok!', 200
+    abort(400)
+    # return render_template('face.html')
 
 
-@app.route('/get/person/nobase/face/', methods=['GET', 'POST'])
+@app.route('/get/person/face/', methods=['POST'])
 def get_person_by_face_no_base():
-    if request.method == 'POST':
-        image = request.files['file']  # .read()
-        print(image.filename)
-        if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
-            image.save(IMAGEPATH + secure_filename(image.filename))
-            out = PersonService.PersonService.find_face(
-                # FaceService.FaceService.save_byte_image(image)
-                IMAGEPATH + secure_filename(image.filename)
-            )
-            if out is not None:
-                d = model_to_dict(out)
-                del d['face_data']
-                print(d)
-                # return jsonify(d)
-                return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
+    """Get person by face image
+    consumes:
+      - image/png
+      - image/jpeg
+    responses:
+      200:
+        description: Added active user
+      400:
+        description: There is no such face in database / Bad face
+    """
+    # if request.method == 'POST':
+    image = request.files['file']  # .read()
+    print(image.filename)
+    if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
+        image.save(IMAGEPATH + secure_filename(image.filename))
+        out = PersonService.PersonService.find_face(
+            # FaceService.FaceService.save_byte_image(image)
+            IMAGEPATH + secure_filename(image.filename)
+        )
+        if out is not None:
+            d = model_to_dict(out)
+            del d['face_data']
+            print(d)
+            # return jsonify(d)
+            return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
 
-        # evil option!
-        # return redirect(url_for(get_person_by_face_no_base()))
-        abort(400)
-    return render_template('face.html')
+    # evil option!
+    # return redirect(url_for(get_person_by_face_no_base()))
+    abort(400)
+    # return render_template('face.html')
 
 
 @app.route('/get/person/id/<identity>', methods=['GET'])
