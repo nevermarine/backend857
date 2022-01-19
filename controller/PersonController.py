@@ -20,7 +20,7 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route('/get/schedule/name/<full_name>', methods=['GET'])
 def get_schedule(full_name):
-    """Get JSON array of lessons for specified student
+    """Get JSON array of lessons for specified student by full name
     ---
     parameters:
       - name: full_name
@@ -42,6 +42,19 @@ def get_schedule(full_name):
 
 @app.route('/get/schedule/id/<identity>', methods=['GET'])
 def get_schedule_by_id(identity):
+    """Get JSON array of lessons for specified student by id
+        ---
+        parameters:
+          - name: id
+            in: path
+            type: integer
+            required: true
+        responses:
+          200:
+            description: OK
+          400:
+            description: Specified id does not exist
+        """
     person = PersonService.PersonService.get_person_by_id(identity)
     r = jsonify(ruz.Ruz.get_schedule_by_names(person.last_name,
                                               person.first_name,
