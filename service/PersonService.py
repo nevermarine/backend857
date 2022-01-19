@@ -1,3 +1,5 @@
+import binascii
+
 import face_recognition as fr
 from model.Person import Person
 from dao.PersonDao import PersonDao
@@ -73,9 +75,12 @@ class PersonService:
 
     @classmethod
     def create_face(cls, person: dict) -> bool:
-        face_embedding = cls.convert_image_to_face_data(
-            cls.convert_str_to_img(person['face_data'])
-        )
+        try:
+            face_embedding = cls.convert_image_to_face_data(
+                cls.convert_str_to_img(person['face_data'])
+            )
+        except binascii.Error:
+            return False
         if face_embedding is None:
             return False
         else:
