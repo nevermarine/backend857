@@ -1,16 +1,12 @@
 # router
 from flask import Flask, request, Blueprint, render_template, abort, url_for, redirect, jsonify
-from flask import make_response
-from jinja2 import TemplateNotFound
 from werkzeug.utils import secure_filename
 from service import ruz, PersonService
 from service.weather import Weather
-from model import Person
 from validator.validator import Validator
 from validator.ActiveUser import CurrentUser
 from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
-import json
 from flasgger import Swagger
 
 
@@ -126,24 +122,6 @@ def add_person():
             return 'bad face', 420
     else:
         return 'bad JSON', 400
-
-
-# Not working!
-# @app.route('/get/person/face/<face>', methods=['GET'])
-# def get_person_by_face(face):
-# 	return PersonService.PersonService.find_face(
-# 		PersonService.PersonService.save_byte_image(
-# 			PersonService.PersonService.convert_str_to_img(face)
-# 		)
-# 	)
-
-
-# @app.route('/get/person/json/face', methods=['GET'])
-# def get_person_by_face_json():
-# 	file = request.get_json()
-# 	face = json.loads(file)
-# 	out = FaceService.FaceService.find_face(
-# 	)
 
 
 @app.route('/add/active_user/', methods=['POST'])
