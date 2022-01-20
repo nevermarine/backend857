@@ -181,13 +181,26 @@ def get_active_user_schedule():
                     description: No active user
                 """
     if CurrentUser:
-        return CurrentUser.get_schedule(), 200
+        return jsonify(CurrentUser.get_schedule()), 200
     else:
         abort(400)
 
 
 @app.route('/update/active_user/id/<identity>')
 def update_active_user_id(identity):
+    """Update active user by id
+        ---
+        parameters:
+          - name: id
+            in: path
+            type: integer
+            required: true
+        responses:
+          200:
+            description: OK
+          400:
+            description: Specified id does not exist
+        """
     out = CurrentUser.update_by_id(identity)
     if out is not None:
         return out
