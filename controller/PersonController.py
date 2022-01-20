@@ -170,6 +170,22 @@ def get_active_user():
     abort(400)
 
 
+@app.route('/get/active_user/schedule', methods=['GET'])
+def get_schedule_name():
+    """Get schedule of active user
+                ---
+                responses:
+                  200:
+                    description: OK
+                  400:
+                    description: No active user
+                """
+    if CurrentUser:
+        return CurrentUser.get_schedule(), 200
+    else:
+        abort(400)
+
+
 @app.route('/get/person/face/', methods=['POST'])
 def get_person_by_face_no_base():
     """Get person by face image

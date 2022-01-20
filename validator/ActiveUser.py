@@ -1,7 +1,7 @@
 from service.PersonService import PersonService
 from werkzeug.datastructures import FileStorage
 from model.Singleton import Singleton
-
+from service.ruz import Ruz
 
 class ActiveUser(metaclass=Singleton):
     id = None
@@ -44,6 +44,10 @@ class ActiveUser(metaclass=Singleton):
     @classmethod
     def __bool__(cls):
         return cls.id is not None
+
+    @classmethod
+    def get_schedule(cls):
+        return Ruz.get_schedule_by_full_name(str(cls))
 
 
 CurrentUser = ActiveUser()
