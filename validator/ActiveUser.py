@@ -2,6 +2,8 @@ from service.PersonService import PersonService
 from werkzeug.datastructures import FileStorage
 from model.Singleton import Singleton
 from service.ruz import Ruz
+from typing import Optional
+
 
 class ActiveUser(metaclass=Singleton):
     id = None
@@ -30,6 +32,18 @@ class ActiveUser(metaclass=Singleton):
             cls.patronymic = user.patronymic
             cls.face_data = user.face_data
 
+    @classmethod
+    def update_by_id(cls, i: int) -> Optional[str]:
+        user = PersonService.get_person_by_id(i)
+        if user is not None:
+            cls.id = user.face_id
+            cls.first_name = user.first_name
+            cls.last_name = user.last_name
+            cls.patronymic = user.patronymic
+            cls.face_data = user.face_data
+            return str(cls)
+        return None
+
     def __eq__(self, other):
         return self.id == other.id
 
@@ -47,7 +61,9 @@ class ActiveUser(metaclass=Singleton):
 
     @classmethod
     def get_schedule(cls):
-        return Ruz.get_schedule_by_full_name(str(cls))
+        return Ruz.get_schedule_by_names(
+            cls.last_name, cls.first_name, cls.patronymic
+        )
 
 
 CurrentUser = ActiveUser()

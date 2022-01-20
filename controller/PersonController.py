@@ -171,7 +171,7 @@ def get_active_user():
 
 
 @app.route('/get/active_user/schedule', methods=['GET'])
-def get_schedule_name():
+def get_active_user_schedule():
     """Get schedule of active user
                 ---
                 responses:
@@ -182,6 +182,15 @@ def get_schedule_name():
                 """
     if CurrentUser:
         return CurrentUser.get_schedule(), 200
+    else:
+        abort(400)
+
+
+@app.route('update/active_user/id/<identity>')
+def update_active_user_id(identity):
+    out = CurrentUser.update(identity)
+    if out is not None:
+        return out
     else:
         abort(400)
 
