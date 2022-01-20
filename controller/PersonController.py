@@ -186,7 +186,7 @@ def get_active_user_schedule():
         abort(400)
 
 
-@app.route('update/active_user/id/<identity>')
+@app.route('/update/active_user/id/<identity>')
 def update_active_user_id(identity):
     out = CurrentUser.update(identity)
     if out is not None:
