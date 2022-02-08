@@ -48,7 +48,7 @@ class VoiceAssistant:
         return input_text.lower()
 
     def answer(self, question):
-        f = 'C:/Users/' + 'Maria Kofanova'+'/PycharmProjects/VAParts/talk_template.json'
+        f = 'talk_template.json'
         with open(f, 'r', encoding='utf-8') as f:
             answers = json.load(f)
         if question == "замолчи" or question == "отстань" or question == "стоп":
@@ -94,7 +94,7 @@ class VoiceAssistant:
         return 'Мне аж интересно стало что вы имеете в виду'
 
     def answer_NEW(self, question):
-        with open('C:/Users/Maria Kofanova/PycharmProjects/VAParts/talk_template.json', 'r') as f:
+        with open('talk_template.json', 'r') as f:
             answers = json.load(f)
         for i in answers:
             if self.same(question, i['action']):
