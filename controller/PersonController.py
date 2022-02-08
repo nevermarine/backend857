@@ -8,11 +8,39 @@ from validator.ActiveUser import CurrentUser
 from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 from flasgger import Swagger
-
+from service.nlp.VoiceAssistant import VoiceAssistant
 
 app = Flask(__name__)
 Swagger(app)
 app.config['JSON_AS_ASCII'] = False
+
+
+@app.route('/get/voice/', methods=['POST'])
+def get_voice():
+    """Get answer via string
+    ---
+    consumes:
+      - application/json
+    parameters:
+      - in: body
+        name: voice
+        description: Person to create.
+        schema:
+          type: object
+          properties:
+            question:
+              type: string
+    responses:
+      200:
+        description: Got answer
+      400:
+        description: Bad JSON
+    """
+    file = request.get_json()
+    if 'question' in file:
+        return VoiceAssistant(question).start(), 200
+    else:
+        abort(400)
 
 
 @app.route('/get/schedule/name/<full_name>', methods=['GET'])
