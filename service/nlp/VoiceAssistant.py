@@ -1,8 +1,8 @@
 import random
 import nltk
 import json
-from RuzModule import RUZ
-from WeatherModule import Weather
+from service.nlp.RuzModule import RUZ
+from service.nlp.WeatherModule import Weather
 
 
 class VoiceAssistant:
