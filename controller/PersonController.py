@@ -38,7 +38,7 @@ def get_voice():
     """
     file = request.get_json()
     if 'question' in file:
-        return VoiceAssistant(question).start(), 200
+        return VoiceAssistant(file['question']).start(), 200
     else:
         abort(400)
 
