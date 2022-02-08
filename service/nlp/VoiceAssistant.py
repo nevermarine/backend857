@@ -3,6 +3,7 @@ import nltk
 import json
 from service.nlp.RuzModule import RUZ
 from service.nlp.WeatherModule import Weather
+from pathlib import Path
 
 
 class VoiceAssistant:
@@ -48,7 +49,7 @@ class VoiceAssistant:
         return input_text.lower()
 
     def answer(self, question):
-        f = 'talk_template.json'
+        f = Path.cwd() / 'talk_template.json'
         with open(f, 'r', encoding='utf-8') as f:
             answers = json.load(f)
         if question == "замолчи" or question == "отстань" or question == "стоп":
@@ -94,7 +95,7 @@ class VoiceAssistant:
         return 'Мне аж интересно стало что вы имеете в виду'
 
     def answer_NEW(self, question):
-        with open('talk_template.json', 'r') as f:
+        with open(Path.cwd() / 'talk_template.json', 'r') as f:
             answers = json.load(f)
         for i in answers:
             if self.same(question, i['action']):
