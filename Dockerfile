@@ -7,6 +7,7 @@ RUN apt install cmake -y
 COPY ./requirements.txt ./
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 RUN apt autoremove cmake -y
+RUN python -m nltk.downloader stopwords
 RUN mkdir /app/images/
 
 COPY ./ ./
