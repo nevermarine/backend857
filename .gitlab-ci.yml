@@ -11,9 +11,8 @@ build-job:
   tags:
     - shell
   script:
-    - docker-compose build 
-    # well, you don't expect me to copy database file every time I build an image?
-
+    - docker-compose build
+    - docker-compose push
 
 deploy-job:
   stage: deploy
