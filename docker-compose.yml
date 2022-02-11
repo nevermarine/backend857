@@ -10,6 +10,7 @@ services:
       - ./dao/people.db:/var/people.db
     networks:
       - net
+    image: nevermarine/kesha
 
 networks:
   net:
