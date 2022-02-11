@@ -10,7 +10,7 @@ services:
       - ./dao/people.db:/var/people.db
     networks:
       - net
-    image: nevermarine/kesha
+    image: registry.miem.hse.ru/857/backend
 
 networks:
   net:
