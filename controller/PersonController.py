@@ -138,6 +138,8 @@ def add_person():
               type: string
             position:
               type: string
+            mail:
+              type: string
             face_data:
               type: string
               format: byte
@@ -200,6 +202,7 @@ def get_active_user():
         if out is not None:
             d = model_to_dict(out)
             del d['face_data']
+            del d['filename']
             print(d)
             # return jsonify(d)
             return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
@@ -273,6 +276,7 @@ def get_person_by_face_no_base():
         if out is not None:
             d = model_to_dict(out)
             del d['face_data']
+            del d['filename']
             print(d)
             # return jsonify(d)
             return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
@@ -297,6 +301,7 @@ def debug_face():
             if out is not None:
                 d = model_to_dict(out)
                 del d['face_data']
+                del d['filename']
                 print(d)
                 # return jsonify(d)
                 return d, 200, {'Content-Type': 'application/json; charset=utf-8'}
@@ -326,6 +331,7 @@ def get_person_by_id(identity):
     if out is not None:
         d = model_to_dict(out)
         del d['face_data']
+        del d['filename']
         print(d)
         # return jsonify(d)
         return d, 200, {'Content-Type': 'application/json; charset=utf-8'}

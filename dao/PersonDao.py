@@ -11,19 +11,21 @@ class PersonDao:
         person.save()
 
     @staticmethod
-    def create_person(position=None,
-                      first_name=None,
+    def create_person(first_name=None,
                       last_name=None,
                       patronymic=None,
                       face_data=None,
-                      mail=None) \
+                      position=None,
+                      mail=None,
+                      filename=None) \
             -> Optional[Person]:
         person = Person(position=position,
                         last_name=last_name,
                         first_name=first_name,
                         patronymic=patronymic,
                         face_data=face_data,
-                        mail=mail)
+                        mail=mail,
+                        filename=filename)
         person.save()
         return person
 
@@ -88,3 +90,4 @@ class PersonDao:
             return True
         except DoesNotExist:
             return False
+

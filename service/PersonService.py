@@ -60,7 +60,7 @@ class PersonService:
             return None
         face_enq = face_array[0]
         print(type(face_enq))
-        return face_enq
+        return face_enq, filename
 
     @staticmethod
     def save_byte_image(byte_image):
@@ -76,7 +76,7 @@ class PersonService:
     @classmethod
     def create_face(cls, person: dict) -> bool:
         try:
-            face_embedding = cls.convert_image_to_face_data(
+            face_embedding, filename = cls.convert_image_to_face_data(
                 cls.convert_str_to_img(person['face_data'])
             )
         except binascii.Error:
@@ -84,10 +84,13 @@ class PersonService:
         if face_embedding is None:
             return False
         else:
-            PersonDao.create_person(person['first_name'],
-                                    person['last_name'],
-                                    person['patronymic'],
-                                    face_embedding)
+            PersonDao.create_person(first_name=person['first_name'],
+                                    last_name=person['last_name'],
+                                    patronymic=person['patronymic'],
+                                    face_data=person['face_data'],
+                                    mail=person['mail'] if 'mail' in person else None,
+                                    position=person['position'] if 'position' in person else None,
+                                    filename=filename)
             return True
 
     @staticmethod
