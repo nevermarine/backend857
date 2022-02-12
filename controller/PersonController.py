@@ -15,9 +15,12 @@ app = Flask(__name__)
 Swagger(app)
 app.config['JSON_AS_ASCII'] = False
 
-
-logg = logging.getLogger("LoggerController")
-logg.debug("Initialize controller")
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler("controller.log")
+formatter = logging.Formatter('%(asctime)s %(name)s :: %(levelname)s : %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 
 @app.route('/get/voice/', methods=['POST'])
@@ -157,19 +160,19 @@ def add_person():
         description: Bad face
     """
     file = request.get_json()
-    logg.info("JSON at /add/person")
-    logg.debug(file)
+    logger.info("JSON at /add/person")
+    logger.debug(file)
     # person = json.loads(file)
     if Validator.is_valid_person(file):
-        logg.info("Valid JSON")
+        logger.info("Valid JSON")
         if PersonService.PersonService.create_face(file):
-            logg.info("Sucessfully added person")
+            logger.info("Sucessfully added person")
             return 'ok!', 200
         else:
-            logg.info("Could not create person, bad face")
+            logger.info("Could not create person, bad face")
             return 'bad face', 420
     else:
-        logg.info("Bad JSON")
+        logger.info("Bad JSON")
         return 'bad JSON', 400
 
 
