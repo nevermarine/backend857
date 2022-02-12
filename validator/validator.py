@@ -24,7 +24,7 @@ class Validator:
 
     @staticmethod
     def is_valid_person(person: dict) -> bool:
-        for i in ('first_name', 'last_name', 'patronymic', 'face_data'):
+        for i in ('position', 'first_name', 'last_name', 'patronymic', 'face_data'):
             if i not in person:
                 return False
         return True

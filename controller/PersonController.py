@@ -123,12 +123,20 @@ def add_person():
         description: Person to create.
         schema:
           type: object
+          required:
+            - last_name
+            - first_name
+            - patronymic
+            - position
+            - face_data
           properties:
             last_name:
               type: string
             first_name:
               type: string
             patronymic:
+              type: string
+            position:
               type: string
             face_data:
               type: string

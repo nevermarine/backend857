@@ -11,6 +11,8 @@ class ActiveUser(metaclass=Singleton):
     last_name = None
     patronymic = None
     face_data = None
+    mail = None
+    position = None
 
     # @classmethod
     # def __init__(cls, image):
@@ -31,6 +33,7 @@ class ActiveUser(metaclass=Singleton):
             cls.last_name = user.last_name
             cls.patronymic = user.patronymic
             cls.face_data = user.face_data
+            cls.mail = user.mail
 
     @classmethod
     def update_by_id(cls, i: int) -> Optional[str]:
@@ -41,6 +44,8 @@ class ActiveUser(metaclass=Singleton):
             cls.last_name = user.last_name
             cls.patronymic = user.patronymic
             cls.face_data = user.face_data
+            cls.mail = user.mail
+            cls.position = user.position
             return str(cls)
         return None
 
@@ -53,7 +58,7 @@ class ActiveUser(metaclass=Singleton):
             # return f"{cls.last_name} {cls.first_name} {cls.patronymic}"
             return cls.last_name + ' ' + cls.first_name + ' ' + cls.patronymic
         else:
-            return 'No active user!'
+            return ''
 
     @classmethod
     def __bool__(cls):

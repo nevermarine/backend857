@@ -11,9 +11,19 @@ class PersonDao:
         person.save()
 
     @staticmethod
-    def create_person(first_name, last_name, patronymic: str, face_data: list) -> Optional[Person]:
-        person = Person(last_name=last_name, first_name=first_name, patronymic=patronymic,
-                        face_data=face_data)
+    def create_person(position=None,
+                      first_name=None,
+                      last_name=None,
+                      patronymic=None,
+                      face_data=None,
+                      mail=None) \
+            -> Optional[Person]:
+        person = Person(position=position,
+                        last_name=last_name,
+                        first_name=first_name,
+                        patronymic=patronymic,
+                        face_data=face_data,
+                        mail=mail)
         person.save()
         return person
 
@@ -64,9 +74,10 @@ class PersonDao:
     # 	return Person.select().dicts()
 
     # UPDATE
-    @staticmethod
-    def update_person_face_by_id(id: int, ):
-        pass
+    # @staticmethod
+    # def update_person_face_by_id(identity: int, **params):
+    #     try:
+    #         person = Person.get_by_id(identity)
 
     # DELETE
     @staticmethod

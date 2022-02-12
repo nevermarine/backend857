@@ -43,6 +43,8 @@ class Person(BaseModel):
     first_name = TextField(null=True)
     last_name = TextField(null=True)
     patronymic = TextField(null=True)
+    mail = TextField(null=True)
+    position = TextField(null=True)
 
     class Meta:
         table_name = 'faces'
