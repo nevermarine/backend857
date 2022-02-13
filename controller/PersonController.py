@@ -9,7 +9,8 @@ from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 from flasgger import Swagger
 from service.nlp.VoiceAssistant import VoiceAssistant
-import logging, sys
+import logging
+import sys
 
 app = Flask(__name__)
 Swagger(app)
