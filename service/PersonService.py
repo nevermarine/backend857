@@ -8,9 +8,17 @@ import base64
 import numpy as np
 from typing import Optional
 # from werkzeug.utils import secure_filename
-
+import logging, sys
 from config.config import IMAGEPATH
 from validator.validator import Validator
+
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+fh = logging.FileHandler("PersonSerivce.log")
+formatter = logging.Formatter('%(asctime)s %(name)s :: %(levelname)s : %(message)s')
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 
 class PersonService:
@@ -75,6 +83,7 @@ class PersonService:
 
     @classmethod
     def create_face(cls, person: dict) -> bool:
+        logger.debug('Face image type: ', type(person['face_data']))
         try:
             face_embedding, filename = cls.convert_image_to_face_data(
                 cls.convert_str_to_img(person['face_data'])
