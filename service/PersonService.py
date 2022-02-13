@@ -83,7 +83,7 @@ class PersonService:
 
     @classmethod
     def create_face(cls, person: dict) -> bool:
-        logger.debug('Face image type: ', type(person['face_data']))
+        # logger.debug('Face image type: ', type(person['face_data']))
         try:
             face_embedding, filename = cls.convert_image_to_face_data(
                 cls.convert_str_to_img(person['face_data'])
