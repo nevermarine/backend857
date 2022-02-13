@@ -9,6 +9,7 @@ from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 from flasgger import Swagger
 from service.nlp.VoiceAssistant import VoiceAssistant
+import json
 import logging
 import sys
 
@@ -161,6 +162,8 @@ def add_person():
         description: Bad face
     """
     file = request.get_json()
+    if type(file) == str:
+        file = json.loads(file)
     logger.info("JSON at /add/person")
     logger.info("Type: " + str(type(file)))
     # logger.debug(file)  # a lot of lag due to output of base64 image
