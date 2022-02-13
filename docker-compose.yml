@@ -9,6 +9,7 @@ services:
       - LOG_LEVEL="debug"
     volumes:
       - ./dao/people.db:/var/people.db
+      - ./dao/images/:/app/images/
     networks:
       - net
     image: registry.miem.hse.ru/857/backend

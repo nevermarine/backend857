@@ -24,4 +24,5 @@ deploy-job:
     - shell
   script:
     - ln -s /var/people.db $CI_PROJECT_DIR/dao/
+    - ln -s /var/images $CI_PROJECT_DIR/dao/images
     - docker-compose up -d
