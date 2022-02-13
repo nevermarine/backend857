@@ -1,4 +1,5 @@
-IMAGEPATH = "/app/images"
+IMAGEPATH = "/app/images/"
+TMP_IMAGEPATH="/tmp/"
 WORKPATH = "/srv/bot/web/"
 # WORKPATH = "/root/rbackend/"
 NEW_DATA_FILE = "new_dataset_faces"
