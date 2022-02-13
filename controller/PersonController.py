@@ -161,8 +161,7 @@ def add_person():
     """
     file = request.get_json()
     logger.info("JSON at /add/person")
-    logger.debug(file)
-    # person = json.loads(file)
+    # logger.debug(file)  # a lot of lag due to output of base64 image
     if Validator.is_valid_person(file):
         logger.info("Valid JSON")
         if PersonService.PersonService.create_face(file):
