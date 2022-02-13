@@ -9,14 +9,14 @@ from config.config import IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 from flasgger import Swagger
 from service.nlp.VoiceAssistant import VoiceAssistant
-import logging
+import logging, sys
 
 app = Flask(__name__)
 Swagger(app)
 app.config['JSON_AS_ASCII'] = False
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 fh = logging.FileHandler("controller.log")
 formatter = logging.Formatter('%(asctime)s %(name)s :: %(levelname)s : %(message)s')
 fh.setFormatter(formatter)
