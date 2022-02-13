@@ -24,4 +24,4 @@ class Person(BaseModel):
         table_name = 'faces'
 
 
-Person.create_table(safe=True)
+# Person.create_table(safe=True)
