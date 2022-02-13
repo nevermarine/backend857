@@ -8,7 +8,9 @@ import base64
 import numpy as np
 from typing import Optional
 # from werkzeug.utils import secure_filename
-import logging, sys
+import logging
+import sys
+import os
 from config.config import IMAGEPATH
 from validator.validator import Validator
 
@@ -65,7 +67,7 @@ class PersonService:
         loaded_image = fr.load_image_file(IMAGEPATH + filename)
         face_array = fr.face_encodings(loaded_image)
         if len(face_array) == 0:
-            return None
+            return None, filename
         face_enq = face_array[0]
         print(type(face_enq))
         return face_enq, filename
@@ -83,7 +85,7 @@ class PersonService:
 
     @classmethod
     def create_face(cls, person: dict) -> bool:
-        # logger.debug('Face image type: ', type(person['face_data']))
+        logger.debug('Face image type: ' + str(type(person['face_data'])))
         try:
             face_embedding, filename = cls.convert_image_to_face_data(
                 cls.convert_str_to_img(person['face_data'])
@@ -96,7 +98,7 @@ class PersonService:
             PersonDao.create_person(first_name=person['first_name'],
                                     last_name=person['last_name'],
                                     patronymic=person['patronymic'],
-                                    face_data=person['face_data'],
+                                    face_data=face_embedding,
                                     mail=person['mail'] if 'mail' in person else None,
                                     position=person['position'] if 'position' in person else None,
                                     filename=filename)
