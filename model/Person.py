@@ -18,10 +18,10 @@ class Person(BaseModel):
     patronymic = TextField(null=True)
     mail = TextField(null=True)
     position = TextField(null=True)
-    picture = BlobField(null=True)
+    filename = TextField(null=True)
 
     class Meta:
         table_name = 'faces'
 
 
-# Person.create_table(safe=True)
+Person.create_table(safe=True)
