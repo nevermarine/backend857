@@ -162,7 +162,7 @@ def add_person():
     """
     file = request.get_json()
     logger.info("JSON at /add/person")
-    logger.info("Type: ", str(type(file)))
+    logger.info("Type: " + str(type(file)))
     # logger.debug(file)  # a lot of lag due to output of base64 image
     if Validator.is_valid_person(file):
         logger.info("Valid JSON")
