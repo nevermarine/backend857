@@ -5,7 +5,7 @@ from service import ruz, PersonService
 from service.weather import Weather
 from validator.validator import Validator
 from validator.ActiveUser import CurrentUser
-from config.config import IMAGEPATH
+from config.config import IMAGEPATH, TMP_IMAGEPATH
 from playhouse.shortcuts import model_to_dict
 from flasgger import Swagger
 from service.nlp.VoiceAssistant import VoiceAssistant
@@ -286,10 +286,10 @@ def get_person_by_face_no_base():
     image = request.files['face']  # .read()
     print(image.filename)
     if Validator.is_image(image.stream):  # Validator.is_valid_filename(image.filename)
-        image.save(IMAGEPATH + secure_filename(image.filename))
+        image.save(TMP_IMAGEPATH + secure_filename(image.filename))
         out = PersonService.PersonService.find_face(
             # FaceService.FaceService.save_byte_image(image)
-            IMAGEPATH + secure_filename(image.filename)
+            TMP_IMAGEPATH + secure_filename(image.filename)
         )
         if out is not None:
             d = model_to_dict(out)

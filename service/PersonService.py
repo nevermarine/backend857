@@ -11,7 +11,7 @@ from typing import Optional
 import logging
 import sys
 import os
-from config.config import IMAGEPATH
+from config.config import IMAGEPATH, TMP_IMAGEPATH
 from validator.validator import Validator
 
 
@@ -50,13 +50,13 @@ class PersonService:
 
     @classmethod
     def simpler_find_face(cls, werkzeug_img):
-        path = IMAGEPATH + str(uuid.uuid4())
+        path = TMP_IMAGEPATH + str(uuid.uuid4())
         werkzeug_img.save(path)
         return cls.find_face(path)
 
     @classmethod
     def byte_find_face(cls, byte_img):
-        path = IMAGEPATH + str(uuid.uuid4())
+        path = TMP_IMAGEPATH + str(uuid.uuid4())
         with open(path, 'wb') as f:
             f.write(byte_img)
         return cls.find_face(path)
