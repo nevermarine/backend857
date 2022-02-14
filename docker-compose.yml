@@ -13,6 +13,7 @@ services:
     networks:
       - net
     image: registry.miem.hse.ru/857/backend
+    restart: on-failure
 
 networks:
   net:
