@@ -1,7 +1,7 @@
 from service.PersonService import PersonService
 from werkzeug.datastructures import FileStorage
 from model.Singleton import Singleton
-from service.ruz import Ruz
+from service.ruz.ruz import Ruz
 from typing import Optional
 
 
