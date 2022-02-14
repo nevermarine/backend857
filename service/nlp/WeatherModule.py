@@ -43,7 +43,7 @@ class Weather:
 
     def cities(self):
         cities = []
-        with open('city.csv', 'r', newline='') as csvfile:
+        with open(Path(__file__).parent.resolve() /'city.csv', 'r', newline='') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in spamreader:
                 cities.append(row[0].split(';')[3][1:-2])
