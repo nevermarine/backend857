@@ -1,16 +1,14 @@
 import random
 import nltk
 import json
-from service.nlp.RuzModule import RUZ
-from service.nlp.WeatherModule import Weather
-from pathlib import Path
-
-
+from RuzModule import RUZ
+from WeatherModule import Weather
 class VoiceAssistant:
     def __init__(self, question):
         # self.model = build_model(configs.classifiers.paraphraser_rubert, download=True)
         self.flag = True
-        self.quest = question
+        self.quest = question[0:]
+        print(self.quest)
 
     def main_words(self, speech):
         tokenizer = nltk.tokenize.RegexpTokenizer('\w+|\$[\d\.]+|\S+')
@@ -31,25 +29,8 @@ class VoiceAssistant:
         k = self.model([one], [two])
         return k[0]
 
-    def speech_writer(self):
-        '''
-        r = sr.Recognizer()
-        mic = sr.Microphone()
-        with mic as audio_file:
-            r.adjust_for_ambient_noise(audio_file)
-            print("говорите")
-            audio = r.listen(audio_file)
-            try:
-                input_text = r.recognize_google(audio,  language="ru")
-
-            except:
-                input_text = ''
-        '''
-        input_text = input('Человек: ')
-        return input_text.lower()
-
     def answer(self, question):
-        f = Path(__file__).parent.resolve() / 'talk_template.json'
+        f = 'C:/Users/' + 'Maria Kofanova'+'/PycharmProjects/VAParts/talk_template.json'
         with open(f, 'r', encoding='utf-8') as f:
             answers = json.load(f)
         if question == "замолчи" or question == "отстань" or question == "стоп":
@@ -57,7 +38,7 @@ class VoiceAssistant:
             return 'Хорошо. Больше не мешаю'
         for i in range(len(answers)):
             for m in range(len(answers[i]['action'])):
-                if question == answers[i]['action'][m]:
+                if answers[i]['action'][m] == question:
                     j = random.randint(0, len(answers[i]['customAnswers']) - 1)
                     if answers[i]['customAnswers'][j] == 'open_RUZ':
                         ruz = RUZ(question)
@@ -90,12 +71,14 @@ class VoiceAssistant:
                             return description
                     elif answers[i]['customAnswers'][j] == 'pass':
                         return ''
+                    elif answers[i]['customAnswers'][j] == 'selfiRequest':
+                        return 'selfiRequest'
                     else:
                         return answers[i]['customAnswers'][j]
         return 'Мне аж интересно стало что вы имеете в виду'
 
     def answer_NEW(self, question):
-        with open(Path(__file__).parent.resolve() / 'talk_template.json', 'r') as f:
+        with open('C:/Users/Maria Kofanova/PycharmProjects/VAParts/talk_template.json', 'r') as f:
             answers = json.load(f)
         for i in answers:
             if self.same(question, i['action']):
@@ -126,4 +109,5 @@ class VoiceAssistant:
         tts.say(answer)
         tts.runAndWait()'''
         print('Помощник: ' + answer)
+
 

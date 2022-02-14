@@ -2,6 +2,7 @@ import csv
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 import re
+from service.weather.Weather import Weather as weatherModule
 class Weather:
     def __init__(self, quest):
         self.date, self.city = self.process(quest)
@@ -21,16 +22,7 @@ class Weather:
         }
 
     def get_data(self):
-        print('тут должен быть запрос о данных в модуль weather')
-        self.data = {
-                    "description": "Clouds",
-                    "text": "хмарно",
-                    "temp": 3.14,
-                    "feels_like": 2.06,
-                    "pressure": 1014,
-                    "humidity": 88,
-                    "windSpeed": 1.34
-                    }
+        self.data = weatherModule.get_weather_date(self.city, 'ru', self.date)
 
     def read_data(self):
         if self.date == None:
@@ -55,25 +47,36 @@ class Weather:
             spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in spamreader:
                 cities.append(row[0].split(';')[3][1:-2])
-        print(cities)
         return cities
 
     def process(self, request):
-      regex = r'какая погода будет в городе (.+?) (?:(\d{1,2}) (.+) (\d{4})|(завтра|послезавтра|сегодня))'
-      match = re.search(regex, request, flags=re.IGNORECASE)
-      if match is None:
-          return None, None
-      if match.groups()[4] is not None:
-          text = match.groups()[4]
-          if text == 'сегодня':
-              parsed_date = str(date.today()).replace('-', '.')
-          elif text == 'завтра':
-              parsed_date = str(date.today() + relativedelta(days=1)).replace('-', '.')
-          elif text == 'послезавтра':
-              parsed_date = str(date.today() + relativedelta(days=2)).replace('-', '.')
-          else:
-              raise Exception()
-      else:
-          parsed_date = str(self.parse_date_forweather(match[2], match[3], match[4])).replace('-', '.')
-      city = match[1]
-      return parsed_date, city
+        regex = r'какая погода будет в городе (.+?) (?:(\d{1,2}) (.+) (\d{4})|(завтра|послезавтра|сегодня))'
+        match = re.search(regex, request, flags=re.IGNORECASE)
+        if match is None:
+            city = self.cities()
+            rcity = None
+            for i in city:
+                if i in request:
+                    rcity = i
+                    break
+            if rcity == None:
+                rcity = 'Москва'
+            if 'завтра' in request:
+                return 'завтра', rcity
+            if 'послезавтра' in request:
+                return 'послезавтра', rcity
+            return 'сегодня', rcity
+        if match.groups()[4] is not None:
+            text = match.groups()[4]
+            if text == 'сегодня':
+                parsed_date = str(date.today()).replace('-', '.')
+            elif text == 'завтра':
+                parsed_date = str(date.today() + relativedelta(days=1)).replace('-', '.')
+            elif text == 'послезавтра':
+                parsed_date = str(date.today() + relativedelta(days=2)).replace('-', '.')
+            else:
+                raise Exception()
+        else:
+            parsed_date = str(self.parse_date_forweather(match[2], match[3], match[4])).replace('-', '.')
+        city = match[1]
+        return parsed_date, city

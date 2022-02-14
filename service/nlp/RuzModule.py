@@ -2,6 +2,8 @@ from dateutil.parser import parse
 from datetime import datetime, date
 import re
 from dateutil.relativedelta import relativedelta
+from service.ruz.ruz import Ruz
+from validator.ActiveUser import CurrentUser
 class RUZ:
   def __init__(self, quest):
     self.date = self.parse_question(quest)
@@ -47,20 +49,7 @@ class RUZ:
 
   def get_data(self):
     #print('здесь мы должны получить данные в формате json, я просто написала сама')
-    self.schedule = [
-                      {
-                      'auditorium': 'On-line (L1)',
-                      'auditoriumAmount': 200,
-                      'beginLesson': '18:10',
-                      'building': 'Таллинская ул., д. 34',
-                      'dayOfWeekString': 'Пн',
-                      'discipline': 'Электротехника (рус)',
-                      'endLesson': '19:30',
-                      'group': 'ЭТ_Б2020_ИВТХ#П#Электротехника',
-                      'lecturer': 'Доцент Рябов Никита Иванович',
-                      'url1': None
-                      }
-                    ]
+    self.schedule = Ruz.get_schedule_by_name_and_date(str(CurrentUser), self.date)
 
   def read_data(self):
     if self.date==None:
