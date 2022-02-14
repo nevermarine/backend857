@@ -3,6 +3,9 @@ from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 import re
 from service.weather.Weather import Weather as weatherModule
+from pathlib import Path
+
+
 class Weather:
     def __init__(self, quest):
         self.date, self.city = self.process(quest)
