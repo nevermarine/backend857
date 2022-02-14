@@ -1,7 +1,8 @@
 # router
 from flask import Flask, request, Blueprint, render_template, abort, url_for, redirect, jsonify
 from werkzeug.utils import secure_filename
-from service import ruz, PersonService
+from service import PersonService
+from service.ruz import ruz
 from service.weather import Weather
 from validator.validator import Validator
 from validator.ActiveUser import CurrentUser
