@@ -52,6 +52,8 @@ class RUZ:
     self.schedule = Ruz.get_schedule_by_name_and_date(str(CurrentUser), self.date)
 
   def read_data(self):
+    if not CurrentUser:
+        return None
     if self.date==None:
       return None
     self.get_data()
