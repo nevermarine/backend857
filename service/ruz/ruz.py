@@ -40,10 +40,12 @@ class Ruz:
         return mail
 
     @staticmethod
-    def get_schedule_by_name_and_date(fio: str, date: str) -> Optional[dict]:
+    def get_schedule_by_name_and_date(fio: str, date: str, type_='student') -> Optional[dict]:
         logg.info('Try to get schedule by name and date...')
         logg.info('Initialize the type of person...')
-        type_ = 'student'
+        # type_ = 'student'
+        if type_ == 'teacher':
+            type_ = 'lecturer'
         logg.info('Start work with date...')
         date_start = date
         if date == '':
@@ -64,7 +66,7 @@ class Ruz:
             logg.error('The empty answer from ruz!')
             return None
         logg.info('Get id from ruz! Continue working...')
-        url = 'https://ruz.hse.ru/api/schedule/student/' + r[0]["id"] + '?start=' + date_start + '&finish=' + date_end + '&lng=1'
+        url = 'https://ruz.hse.ru/api/schedule/' + type_ + '/' + r[0]["id"] + '?start=' + date_start + '&finish=' + date_end + '&lng=1'
         logg.info('Try to get schedule from ruz...')
         syllabus = requests.get(url).json()
         to_json = []

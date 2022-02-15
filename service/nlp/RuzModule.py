@@ -49,7 +49,7 @@ class RUZ:
 
   def get_data(self):
     #print('здесь мы должны получить данные в формате json, я просто написала сама')
-    self.schedule = Ruz.get_schedule_by_name_and_date(str(CurrentUser), self.date)
+    self.schedule = Ruz.get_schedule_by_name_and_date(str(CurrentUser), self.date, CurrentUser.position)
 
   def read_data(self):
     if not CurrentUser:
