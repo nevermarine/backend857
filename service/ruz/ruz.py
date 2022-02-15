@@ -8,7 +8,7 @@ logg.debug("Initialize Ruz")
 
 class Ruz:
     @classmethod
-    def get_schedule_by_names(cls, last_name, first_name, patronymic: str, self) -> Optional[dict]:
+    def get_schedule_by_names(cls, last_name, first_name, patronymic: str) -> Optional[dict]:
         fio = " ".join(map(lambda s: s.strip().title(), [last_name, first_name, patronymic]))
         return cls.get_schedule_by_full_name(fio)
 
