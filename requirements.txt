@@ -10,6 +10,13 @@ hse_ruz
 requests==2.26.0
 nltk
 python-dateutil
+deeppavlov
+gensim==4.1.2
+tensorflow==2.5
+sklearn
+pymorphy2
+pickle
+collections
 # dao
 peewee==3.14.4
 # other
