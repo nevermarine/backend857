@@ -1,7 +1,7 @@
-from RuzModule import RUZ
-from WeatherModule import Weather
+from service.nlp.RuzModule import RUZ
+from service.nlp.WeatherModule import Weather
 import json
-from Model import *
+from service.nlp.Model import *
 import random
 class VoiceAssistant:
 
