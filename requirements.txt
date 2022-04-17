@@ -15,8 +15,7 @@ gensim==4.1.2
 tensorflow==2.5
 sklearn
 pymorphy2
-pickle
-collections
+pickle-mixin
 # dao
 peewee==3.14.4
 # other
