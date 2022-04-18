@@ -1,9 +1,9 @@
 from datetime import date
 import re
-from deeppavlov import configs, build_model
 from dateutil.relativedelta import relativedelta
 from service.ruz.ruz import Ruz
 from validator.ActiveUser import CurrentUser
+from dateutil.parser import parse
 class RUZ:
     def __init__(self, quest):
         self.date = self.parse_question(quest)
@@ -27,7 +27,7 @@ class RUZ:
             if request.find(i) != -1:
                 request = request.replace(i, j)
                 break
-        return request
+        return parse(request)
 
     def parse_question(self, request):
         if request.find("сегодня") != -1:
@@ -40,19 +40,11 @@ class RUZ:
             time_tomorrow = date.today() + relativedelta(days=+1)
             return str(time_tomorrow).replace("-", ".")
         else:
-            regex = r'(\d{4})'
-            dates = {}
+            regex = r'(?:(\d{1,2}) (.+) (\d{4}))'
             match = re.search(regex, request, flags=re.IGNORECASE)
-            if match != None:
-                print(match[0])
-                dates['year'] = match[0]
-                request = request.replace(match[0], '')
-            dates['year'] = '2022'
-            items = ner_model([request])
-            for i in range(len(items[1][0])):
-                if 'B-DATE' in items[1][0][i]: dates['day'] = items[0][0][i]
-                if 'I-DATE' in items[1][0][i]: dates['month'] = items[0][0][i]
-            return dates['year'] + '.' + self.multiple_replace(dates['month'], self.replace_months) + '.' + dates['day']
+            if match is None:
+                return None
+            return self.multiple_replace(match[1] + match[2] + match[3], self.replace_months)
 
     def get_data(self):
         self.schedule = Ruz.get_schedule_by_name_and_date(str(CurrentUser), self.date, CurrentUser.position)
@@ -71,7 +63,5 @@ class RUZ:
                 if i!=len(self.schedule)-1:
                     answer_ruz = answer_ruz + 'с ' + self.schedule[i]['beginLesson'] + ' до '+ self.schedule[i]['endLesson'] + ' будет ' + self.schedule[i]['discipline'][:-5] + ', затем'
                 else:
-                    answer_ruz= answer_ruz + 'с ' + self.schedule[i]['beginLesson'] + ' до '+self.schedule[i]['endLesson'] + ' будет ' + self.schedule[i]['discipline'][:-5]
+                    answer_ruz = answer_ruz + 'с ' + self.schedule[i]['beginLesson'] + ' до '+self.schedule[i]['endLesson'] + ' будет ' + self.schedule[i]['discipline'][:-5]
         return answer_ruz
-
-ner_model = build_model(configs.ner.ner_ontonotes_bert_mult_torch, download=True)
