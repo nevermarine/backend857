@@ -10,7 +10,6 @@ hse_ruz
 requests==2.22.0
 nltk
 python-dateutil
-deeppavlov==1.0.0rc0
 h5py==3.1
 gensim==4.1.2
 tensorflow==2.5
