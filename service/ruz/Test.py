@@ -1,6 +1,8 @@
 import unittest
 import logging
-from RUZ import Ruz
+
+from service.ruz.ruz import Ruz
+
 
 class TestCase(unittest.TestCase):
     def setUp(self):
