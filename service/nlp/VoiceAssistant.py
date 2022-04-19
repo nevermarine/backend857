@@ -12,6 +12,7 @@ class VoiceAssistant:
     def start(self, quest):
         self.speech = quest
         self.id = self.understanding()
+        print(self.id)
         if self.id in [0, 2, 3, 9]:
             return answers[self.id]['intent']#eval('self.' + answers[self.id]['intent'] + '()')
         else:
@@ -46,7 +47,6 @@ class VoiceAssistant:
         w = Weather(self.speech)
         answer_weather = w.read_data()
         return answer_weather
-
 
 # with open('talkTemplate.json', 'r', encoding='utf-8') as f:
 answers = [{"intent": "greeting",
