@@ -23,6 +23,7 @@ class Weather:
         }
 
     def get_data(self):
+        print(self.city, self.date)
         self.data = weatherModule.get_weather_date(self.city, 'ru', self.date)
 
     def read_data(self):

@@ -49,16 +49,18 @@ class Weather:
                     print(i['dt_txt'])#[:10])
                     finded = i
             data = finded
-            weather = {
-                'description': data['weather'][0]['main'],
-                'text': data['weather'][0]['description'],
-                'temp': data['main']['temp'],
-                'feels_like': data['main']['feels_like'],
-                'pressure': data['main']['pressure'],
-                'humidity': data['main']['humidity'],
-                'windSpeed': data['wind']['speed']}
-            logg.info('I get a correct answer and send it!')
-            return weather
+            if data:
+                weather = {
+                    'description': data['weather'][0]['main'],
+                    'text': data['weather'][0]['description'],
+                    'temp': data['main']['temp'],
+                    'feels_like': data['main']['feels_like'],
+                    'pressure': data['main']['pressure'],
+                    'humidity': data['main']['humidity'],
+                    'windSpeed': data['wind']['speed']}
+                logg.info('I get a correct answer and send it!')
+                return weather
+            return None
         else:
             logg.error('The empty answer from openweathermap.org!')
             return None
