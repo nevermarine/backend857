@@ -72,11 +72,11 @@ def get_indices(category_ids):
     return consecutive_indices
 
 def save_ids(category_ids):
-    with open('indices.pickle', 'wb') as f:
+    with open('/app/service/nlp/indices.pickle', 'wb') as f:
         pickle.dump(category_ids, f)
 
 def get_ids():
-    with open('indices.pickle', 'rb') as f:
+    with open('/app/service/nlp/indices.pickle', 'rb') as f:
         indices = pickle.load(f)
 
     return indices
