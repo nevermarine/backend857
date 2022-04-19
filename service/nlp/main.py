@@ -14,7 +14,7 @@ def speech_writer():
         except:
             input_text = ''
     print('Человек:', input_text)'''
-    input_text = input('Пишите:')
+    input_text = input('Пишитее:')
     return input_text.lower()
 
 def keyword(x):
