@@ -19,3 +19,4 @@ pymorphy2
 peewee==3.14.4
 # other
 flasgger
+cudatoolkit
