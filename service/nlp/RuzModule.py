@@ -45,6 +45,7 @@ class RUZ:
             regex = r'(?:(\d{1,2}) (.+) (\d{4}))'
             match = re.search(regex, request, flags=re.IGNORECASE)
             if match is None:
+                time_now = date.today()
                 return str(time_now).replace("-", ".")
             return self.multiple_replace(match[1] + match[2] + match[3], self.replace_months)
 
