@@ -50,7 +50,8 @@ class Weather:
         match_city = re.search(regex, request, flags=re.IGNORECASE)
         match_date = re.search(reg_date, request, flags=re.IGNORECASE)
         if match_day is not None:
-            text = match_day
+            text = match_day[0]
+            print(text)
             if text == 'сегодня':
                 parsed_date = str(date.today()).replace('-', '.')
             elif text == 'завтра':
@@ -66,7 +67,7 @@ class Weather:
             else:
                 parsed_date = str(date.today()).replace('-', '.')
         if match_city is not None:
-            city = match_city
+            city = match_city[0][2:]
         else:
             city = 'москва'
         return parsed_date, city
