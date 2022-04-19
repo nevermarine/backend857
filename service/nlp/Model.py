@@ -43,23 +43,24 @@ def fit(requests, category_ids):
     return history
 
 def predict(request: str) -> int:
-    if os.path.isfile(__keras_model_path) and os.path.isfile(__tokenizer_path) and os.path.isfile(__maxlen_path):
-        keras_model = keras.models.load_model(__keras_model_path)
+    #if os.path.isfile(__keras_model_path) and os.path.isfile(__tokenizer_path) and os.path.isfile(__maxlen_path):
+    keras_model = keras.models.load_model(__keras_model_path)
 
-        with open(__tokenizer_path, 'rb') as handle:
-          tokenizer = pickle.load(handle)
-        sentences = [tokenize(request)]
-        X_predict = tokenizer.texts_to_sequences(sentences)
-        X_predict = keras.preprocessing.sequence.pad_sequences(X_predict, maxlen=get_maxlen())
+    with open(__tokenizer_path, 'rb') as handle:
+      tokenizer = pickle.load(handle)
+    sentences = [tokenize(request)]
+    X_predict = tokenizer.texts_to_sequences(sentences)
+    X_predict = keras.preprocessing.sequence.pad_sequences(X_predict, maxlen=get_maxlen())
 
-        prediction = np.argmax(keras_model.predict(X_predict), axis=-1)
-        indices_unique = numpy.unique(get_ids())
+    prediction = np.argmax(keras_model.predict(X_predict), axis=-1)
+    indices_unique = numpy.unique(get_ids())
 
-        return indices_unique[prediction[0]]
+    return indices_unique[prediction[0]]
+    '''
     else:
         print('Error')
 
-        return -1
+        return -1 '''
 
 def get_indices(category_ids):
     consecutive_indices = []
