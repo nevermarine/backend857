@@ -78,4 +78,5 @@ class Weather:
                 city = 'москва'
         else:
             city = 'москва'
+            
         return parsed_date, city
