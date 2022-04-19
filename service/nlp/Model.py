@@ -13,6 +13,9 @@ import os.path
 import typing
 import numpy as np
 from tensorflow.keras.utils import to_categorical
+from tensorflow import config as cfg
+
+cfg.set_visible_devices([], 'GPU')
 
 __EMBED_SIZE = 300
 __NUM_FILTERS = 512
