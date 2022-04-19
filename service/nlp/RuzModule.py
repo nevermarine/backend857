@@ -6,9 +6,7 @@ from validator.ActiveUser import CurrentUser
 from dateutil.parser import parse
 class RUZ:
     def __init__(self, quest):
-        print(quest)
         self.date = self.parse_question(quest)
-        print(self.date)
         self.replace_months = {
           "января": "january",
           "февраля": "february",

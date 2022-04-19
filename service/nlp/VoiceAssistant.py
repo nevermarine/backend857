@@ -45,14 +45,14 @@ class VoiceAssistant:
         return answers[self.id]['customAnswers'][j]
 
     def schedule(self):
-        print(' расписание')
         r = RUZ(self.speech)
         answer_ruz = r.read_data()
-        print(answer_ruz)
         return answer_ruz
 
     def weather(self):
+        print('weather')
         w = Weather(self.speech)
+        print(w.read_data())
         answer_weather = w.read_data()
         return answer_weather
 
