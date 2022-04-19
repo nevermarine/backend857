@@ -2,7 +2,7 @@ import re
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from service.weather.Weather import Weather as weatherModule
-import csv
+import json
 
 class Weather:
     def __init__(self, quest):
