@@ -69,7 +69,7 @@ class Weather:
                 parsed_date = str(date.today()).replace('-', '.')
         if match_city is not None:
             city = match_city[0][2:]
-            with open('cities.json', 'r') as f:
+            with open('/app/service/nlp/cities.json', 'r') as f:
                 cities = json.load(f)
             city = [i['name'] for i in cities['city'] if city.lower()[:-1] in i['name'].lower()]
             if len(city)>0:
@@ -78,5 +78,5 @@ class Weather:
                 city = 'москва'
         else:
             city = 'москва'
-            
+
         return parsed_date, city
