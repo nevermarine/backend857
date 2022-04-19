@@ -43,7 +43,7 @@ class Weather:
         return date(year, month, day)
 
     def process(self, request):
-        regex = r'в (.+?) (?:(\d{1,2}) (.+) (\d{4})|(завтра|послезавтра|сегодня))'
+        regex = r'в (.+?) (?:(\d{1,2}) (.+) (\d{4})|(завтра|послезавтра|сегодня)'
         match = re.search(regex, request, flags=re.IGNORECASE)
         if match is None:
           return None, None
