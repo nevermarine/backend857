@@ -44,9 +44,7 @@ class Weather:
             logg.info('Processing a response from openweathermap.org...')
             finded = None
             for i in data['list']:
-                print()
                 if (i['dt_txt'][:10]).replace('-', '.') == date and i['dt_txt'][10:-3] ==' 12:00':
-                    print(i['dt_txt'])#[:10])
                     finded = i
             data = finded
             if data:

@@ -74,7 +74,7 @@ class Weather:
             with open('/app/service/nlp/cities.json', 'r') as f:
                 cities = json.load(f)
             city = [i['name'] for i in cities['city'] if city.lower()[:-1] in i['name'].lower()]
-            if len(city)>0:
+            if not len(city) == 0:
                 city = city[0]
             else:
                 city = 'москва'
