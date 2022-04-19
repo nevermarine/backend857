@@ -4,7 +4,6 @@ import json
 from service.nlp.Model import *
 import random
 
-
 class VoiceAssistant:
 
     def understanding(self):
@@ -14,9 +13,9 @@ class VoiceAssistant:
         self.speech = quest
         self.id = self.understanding()
         if self.id in [0, 2, 3, 9]:
-            return eval('self.' + answers[self.id]['intent'] + '()')
+            return answers[self.id]['intent']#eval('self.' + answers[self.id]['intent'] + '()')
         else:
-            return eval('self.standart_answer()')
+            return answers[self.id]['intent']#eval('self.standart_answer()')
 
     def personal_question(self):
         if 'хобби' in self.speech or 'заняти' in self.speech or 'увлечени' in self.speech or 'план' in self.speech:
