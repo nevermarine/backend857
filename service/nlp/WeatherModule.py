@@ -62,7 +62,7 @@ class Weather:
                 parsed_date = str(date.today() + relativedelta(days=2)).replace('-', '.')
             else:
                 raise Exception
-            request = request.replace(parsed_date, '')
+            request = request.replace(text, '')
         else:
             if match_date is not None:
                 match = match_date
