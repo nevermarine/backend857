@@ -54,9 +54,9 @@ class RUZ:
 
     def read_data(self):
         if not CurrentUser:
-            return None
+            return 'для того чтобы я мог рассказать вам о расписании подойдите ко мне'
         if self.date==None:
-            return None
+            return 'я не понимаю на какую дату вы хотите узнать свое расписание'
         self.get_data()
         if not self.schedule:
             return 'Занятий нет'
