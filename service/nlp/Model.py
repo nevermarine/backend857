@@ -1,4 +1,6 @@
 import gensim
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 import tensorflow.keras as keras
 import nltk
 import sklearn
