@@ -16,6 +16,7 @@ class VoiceAssistant:
             return self.greeting()
         elif self.id == 2:
             return self.schedule()
+            print(' ')
         elif self.id == 3:
             return self.weather()
         elif self.id == 9:
