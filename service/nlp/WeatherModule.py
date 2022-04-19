@@ -70,7 +70,7 @@ class Weather:
                 parsed_date = str(self.parse_date_forweather(match[0], match[1], match[2])).replace('-', '.')
             else:
                 parsed_date = str(date.today()).replace('-', '.')
-
+        print(request)
         match_city = re.search(regex, request, flags=re.IGNORECASE)
         if match_city is not None:
             city = match_city[0][2:]
