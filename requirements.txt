@@ -12,7 +12,7 @@ nltk
 python-dateutil
 h5py==3.1
 gensim==4.1.2
-tensorflow==1.5
+tensorflow==1.15
 sklearn
 pymorphy2
 # dao
