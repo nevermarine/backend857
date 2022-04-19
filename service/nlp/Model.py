@@ -17,9 +17,9 @@ __NUM_FILTERS = 512
 __NUM_WORDS = 3
 __BATCH_SIZE = 32
 __NUM_EPOCHS = 15
-__keras_model_path = 'keras_model.h5'
-__tokenizer_path = 'tokenizer.pickle'
-__maxlen_path = 'maxlen.bin'
+__keras_model_path = '/app/service/nlp/keras_model.h5'
+__tokenizer_path = '/app/service/nlp/tokenizer.pickle'
+__maxlen_path = '/app/service/nlp/maxlen.bin'
 
 def fit(requests, category_ids):
     save_ids(category_ids)
