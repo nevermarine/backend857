@@ -78,6 +78,7 @@ class Weather:
                 city = city[0]
             else:
                 city = 'москва'
+            print(city)
         else:
             city = 'москва'
 
