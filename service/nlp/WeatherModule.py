@@ -30,6 +30,8 @@ class Weather:
         if self.date == None:
             return 'я не понял вас'
         self.get_data()
+        if self.data==None:
+            return ' У меня нет таких данных'
         answer = 'На улице ' + self.data['text'] + '. '
         answer = answer + 'температура воздуха ' + str(self.data['temp']) + ' градусов, ощущается как ' + str(
             self.data['feels_like']) + '. '
@@ -53,7 +55,6 @@ class Weather:
         match_date = re.search(reg_date, request, flags=re.IGNORECASE)
         if match_day is not None:
             text = match_day[0]
-            print(text)
             if text == 'сегодня':
                 parsed_date = str(date.today()).replace('-', '.')
             elif text == 'завтра':
