@@ -1,6 +1,5 @@
 from service.nlp.RuzModule import RUZ
 from service.nlp.WeatherModule import Weather
-import json
 from service.nlp.Model import *
 import random
 
@@ -14,9 +13,9 @@ class VoiceAssistant:
         self.id = self.understanding()
         print(self.id)
         if self.id in [0, 2, 3, 9]:
-            return answers[self.id]['intent']#eval('self.' + answers[self.id]['intent'] + '()')
+            return eval('self.' + answers[self.id]['intent'] + '()')
         else:
-            return answers[self.id]['intent']#eval('self.standart_answer()')
+            return eval('self.standart_answer()')
 
     def personal_question(self):
         if 'хобби' in self.speech or 'заняти' in self.speech or 'увлечени' in self.speech or 'план' in self.speech:
