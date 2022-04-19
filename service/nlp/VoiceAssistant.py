@@ -12,10 +12,16 @@ class VoiceAssistant:
         self.speech = quest
         self.id = self.understanding()
         print(self.id)
-        if self.id in [0, 2, 3, 9]:
-            return eval('self.' + answers[self.id]['intent'] + '()')
+        if self.id == 0:
+            return self.greeting()
+        elif self.id == 2:
+            return self.schedule()
+        elif self.id == 3:
+            return self.weather()
+        elif self.id == 9:
+            return self.personal_question()
         else:
-            return eval('self.standart_answer()')
+            return self.standart_answer()
 
     def personal_question(self):
         if 'хобби' in self.speech or 'заняти' in self.speech or 'увлечени' in self.speech or 'план' in self.speech:
