@@ -26,7 +26,7 @@ class Weather:
 
     def read_data(self):
         if self.date == None:
-            return None
+            return 'я не понял вас'
         self.get_data()
         answer = 'На улице ' + self.data['text'] + '. '
         answer = answer + 'температура воздуха ' + str(self.data['temp']) + ' градусов, ощущается как ' + str(
@@ -43,12 +43,14 @@ class Weather:
         return date(year, month, day)
 
     def process(self, request):
-        regex = r'в (.+?) (?:(\d{1,2}) (.+) (\d{4})|(завтра|послезавтра|сегодня)'
-        match = re.search(regex, request, flags=re.IGNORECASE)
-        if match is None:
-          return None, None
-        if match.groups()[4] is not None:
-            text = match.groups()[4]
+        regex = r'в (.+)'
+        reg_date = '(?:(\d{1,2}) (.+) (\d{4}))'
+        reg_day = r'(завтра|послезавтра|сегодня)'
+        match_day = re.search(reg_day, request, flags=re.IGNORECASE)
+        match_city = re.search(regex, request, flags=re.IGNORECASE)
+        match_date = re.search(reg_date, request, flags=re.IGNORECASE)
+        if match_day is not None:
+            text = match_day
             if text == 'сегодня':
                 parsed_date = str(date.today()).replace('-', '.')
             elif text == 'завтра':
@@ -58,6 +60,13 @@ class Weather:
             else:
                 raise Exception
         else:
-            parsed_date = str(self.parse_date_forweather(match[2], match[3], match[4])).replace('-', '.')
-        city = match[0]
+            if match_date is not None:
+                match = match_date
+                parsed_date = str(self.parse_date_forweather(match[0], match[1], match[2])).replace('-', '.')
+            else:
+                parsed_date = str(date.today()).replace('-', '.')
+        if match_city is not None:
+            city = match_city
+        else:
+            city = 'москва'
         return parsed_date, city
