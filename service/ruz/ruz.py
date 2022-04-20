@@ -107,7 +107,7 @@ class Ruz:
         date_ = datetime.datetime.now()
         date_str = str(date_).replace(' ', 'T')
         date_start = str(date_.date()).replace('-', '.')
-        date_end = str(date_.date() + datetime.timedelta(days=7)).replace('-', '.')
+        date_end = str(date_.date() + datetime.timedelta(days=1)).replace('-', '.')
         # date_start  = '2022.01.10'
         # date_end = '2022.01.17'
         logg.info('Start work with ruz.hse.ru...')
